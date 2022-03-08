@@ -7,7 +7,7 @@ const ProfileSchema = new mongoose.Schema({
   },
   bio: {
     type: String,
-    ref: "author",
+    required: true,
   },
   social: {
     twitter: {
