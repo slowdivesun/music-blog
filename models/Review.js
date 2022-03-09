@@ -13,9 +13,15 @@ const ReviewSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  genre: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "genres",
+  genre: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "genres",
+    },
+  ],
+  score: {
+    type: Number,
+    required: true,
   },
   text: {
     type: String,
