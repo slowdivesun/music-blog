@@ -7,12 +7,12 @@ import Reviews from "./components/layout/Reviews";
 
 const App = () => {
   return (
-    <div className='App bg-gray-300 h-screen'>
+    <div className='App bg-gray-300 h-screen flex flex-col items-stretch'>
       <Router>
         <Fragment>
           <Navbar />
           <Route exact path='/' component={Reviews} />
-          <section className='container'>
+          <section className='App bg-gray-300 h-screen flex flex-col items-center'>
             <Switch>
               <Route exact path='/login' component={Login} />
             </Switch>
