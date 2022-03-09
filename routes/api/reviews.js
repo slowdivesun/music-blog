@@ -10,7 +10,7 @@ const Review = require("../../models/Review");
 
 // @ route  POST api/reviews
 // @desc    Create a review
-// @access  Privaye
+// @access  Private
 router.post(
   "/",
   [
@@ -49,5 +49,36 @@ router.post(
     }
   }
 );
+
+// @ route  GET api/reviews
+// @desc    Get all reviews
+// @access  Public
+router.get("/", async (req, res) => {
+  try {
+    const reviews = await Review.find().sort({ date: -1 });
+    res.json(reviews);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @ route  GET api/reviews/:id
+// @desc    Get review by ID
+// @access  Public
+router.get("/:id", async (req, res) => {
+  try {
+    const review = await Review.findById(req.params.id);
+
+    if (!review) {
+      return res.status(404).json({ msg: "Review not found" });
+    }
+
+    res.json(review);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;
