@@ -13,6 +13,11 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           LOGOUT
         </a>
       </li>
+      <li className='text-xs'>
+        <Link to='dashboard' href='#!'>
+          DASHBOARD
+        </Link>
+      </li>
     </ul>
   );
   const guestLinks = (
