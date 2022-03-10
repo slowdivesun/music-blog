@@ -3,8 +3,9 @@ import { useState } from "react";
 import { login } from "../../actions/auth";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 
-const Login = ({ login }) => {
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const { email, password } = formData;
@@ -12,12 +13,14 @@ const Login = ({ login }) => {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  console.log("hi");
   const onSubmit = (e) => {
-    console.log("what");
     e.preventDefault();
     login(email, password);
   };
+
+  if (isAuthenticated) {
+    return <Redirect to='dashboard' />;
+  }
 
   return (
     <div className='bg-white flex w-4/6 lg:w-6/12 p-6 mt-4'>
@@ -84,6 +87,11 @@ const Login = ({ login }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
-export default connect(null, { login })(Login);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);

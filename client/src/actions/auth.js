@@ -1,5 +1,11 @@
 import axios from "axios";
-import { LOGIN_FAIL, LOGIN_SUCCESS, USER_LOADED, AUTH_ERROR } from "./types.js";
+import {
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  USER_LOADED,
+  AUTH_ERROR,
+  LOGOUT,
+} from "./types.js";
 import { setAlert } from "./alert.js";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -53,4 +59,11 @@ export const login = (email, password) => async (dispatch) => {
       type: LOGIN_FAIL,
     });
   }
+};
+
+// Logout
+export const logout = () => (dispatch) => {
+  dispatch({
+    type: LOGOUT,
+  });
 };
