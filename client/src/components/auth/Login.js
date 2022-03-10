@@ -1,7 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import { login } from "../../actions/auth";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-const Login = () => {
+const Login = ({ login }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const { email, password } = formData;
@@ -9,10 +12,11 @@ const Login = () => {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  console.log("hi");
   const onSubmit = (e) => {
+    console.log("what");
     e.preventDefault();
-    console.log(formData);
+    login(email, password);
   };
 
   return (
@@ -67,7 +71,7 @@ const Login = () => {
           <div className='md:w-2/3'>
             <button
               className='shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded'
-              type='button'
+              type='submit'
             >
               Login
             </button>
@@ -78,4 +82,8 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};
+
+export default connect(null, { login })(Login);
