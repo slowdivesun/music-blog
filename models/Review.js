@@ -16,7 +16,7 @@ const ReviewSchema = new mongoose.Schema({
   genre: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "genres",
+      ref: "genre",
     },
   ],
   score: {

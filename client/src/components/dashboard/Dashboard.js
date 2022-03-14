@@ -5,6 +5,7 @@ import { getCurrentProfile } from "../../actions/profile";
 import { useEffect } from "react";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
+import DashboardActions from "./DashboardActions";
 
 const Dashboard = ({
   getCurrentProfile,
@@ -20,22 +21,22 @@ const Dashboard = ({
       <div className='text-xl'>Loading...</div>
     </div>
   ) : (
-    <Fragment>
-      <h1 className='text-lg font-semibold'>DASHBOARD</h1>
+    <div className='w-2/3 bg-white p-6 flex items-center flex-col '>
+      <h1 className='text-lg font-semibold mb-3'>DASHBOARD</h1>
       {profile !== null ? (
         <Fragment>
-          <div>{profile.author.name}</div>
+          <div className='mb-3'>{profile.author.name}</div>
           {profile.bio}
+          <DashboardActions />
         </Fragment>
       ) : (
         <Fragment>
-          <div>{profile.author.name}</div>
           <Link to='add-bio' className=''>
-            Add a bio and your socials!
+            Add a bio and your socials
           </Link>
         </Fragment>
       )}
-    </Fragment>
+    </div>
   );
 };
 

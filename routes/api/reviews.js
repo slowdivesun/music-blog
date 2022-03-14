@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
+const mongoose = require("mongoose");
 const auth = require("../../middleware/auth");
 
 // Models
 const Author = require("../../models/Author");
+const Genre = require("../../models/Genre");
 const Profile = require("../../models/Profile");
 const Review = require("../../models/Review");
 
@@ -33,6 +35,7 @@ router.post(
       const author = await Author.findById(req.author.id).select("-password");
 
       const newReview = new Review({
+        author: author,
         text: req.body.text,
         title: req.body.title,
         artist: req.body.artist,
@@ -55,7 +58,12 @@ router.post(
 // @access  Public
 router.get("/", async (req, res) => {
   try {
-    const reviews = await Review.find().sort({ date: -1 });
+    const reviews = await Review.find()
+      .sort({ date: -1 })
+      .populate([
+        { path: "author", select: ["name", "_id"] },
+        { path: "genre", select: ["_id", "name"] },
+      ]);
     res.json(reviews);
   } catch (err) {
     console.error(err.message);
@@ -68,7 +76,10 @@ router.get("/", async (req, res) => {
 // @access  Public
 router.get("/:id", async (req, res) => {
   try {
-    const review = await Review.findById(req.params.id);
+    const review = await Review.findById(req.params.id).populate([
+      { path: "author", select: ["_id", "name"] },
+      { path: "genre", select: ["name", "_id"] },
+    ]);
 
     if (!review) {
       return res.status(404).json({ msg: "Review not found" });
@@ -78,6 +89,47 @@ router.get("/:id", async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
+  }
+});
+
+router.get("/author/:author_id", async (req, res) => {
+  try {
+    const author = await Author.findById(req.params.author_id);
+
+    if (!author) {
+      return res.status(404).json({ msg: "Author not found" });
+    }
+    const reviews = await Review.find({
+      author: req.params.author_id,
+    }).populate([
+      { path: "author", select: ["_id", "name"] },
+      { path: "genre", select: ["name", "_id"] },
+    ]);
+    res.json(reviews);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// Get review by genre
+router.get("/genre/:genre_id", async (req, res) => {
+  try {
+    const genre = await Genre.findById(req.params.genre_id);
+
+    if (!genre) {
+      return res.status(404).json({ msg: "Author not found" });
+    }
+    const reviews = await Review.find({
+      genre: req.params.genre_id,
+    }).populate([
+      { path: "author", select: ["_id", "name"] },
+      { path: "genre", select: ["name", "_id"] },
+    ]);
+    res.json(reviews);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
   }
 });
 

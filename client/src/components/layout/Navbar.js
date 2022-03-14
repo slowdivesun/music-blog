@@ -7,11 +7,14 @@ import { Fragment } from "react";
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (
-    <ul>
+    <ul className='flex flex-row justify-between w-full'>
       <li className='text-xs'>
         <a onClick={logout} href='#!'>
           LOGOUT
         </a>
+      </li>
+      <li className='text-xs'>
+        <Link to='/writers'>WRITERS</Link>
       </li>
       <li className='text-xs'>
         <Link to='dashboard' href='#!'>
@@ -21,7 +24,10 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     </ul>
   );
   const guestLinks = (
-    <ul>
+    <ul className='flex flex-row justify-between w-full'>
+      <li className='text-xs'>
+        <Link to='/writers'>WRITERS</Link>
+      </li>
       <li className='text-xs'>
         <Link to='/login'>WRITE</Link>
       </li>
@@ -29,10 +35,10 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   );
   return (
     <div>
-      <div className='p-6 mx-auto bg-white shadow-md flex items-center space-x-4 w-full flex justify-around sticky'>
-        <div className='flex flex-row items-center w-3/4 justify-between'>
-          <div>Pitchfork</div>
-          <div>
+      <div className='p-6 mx-auto bg-white flex items-center space-x-4 w-full justify-around sticky'>
+        <div className='flex flex-col sm:flex-row items-center w-3/4 justify-between'>
+          <div className='text-3xl font-serif sm:w-2/3'>DiveRush</div>
+          <div className='sm:w-1/3 flex items-end w-full mt-3 sm:justify-end'>
             {!loading && (
               <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
             )}

@@ -31,4 +31,14 @@ router.post(
   }
 );
 
+router.get("/", async (req, res) => {
+  try {
+    const genres = await Genre.find();
+    res.json(genres);
+  } catch (err) {
+    console.error(err.message);
+    req.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
