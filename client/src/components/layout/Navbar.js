@@ -21,6 +21,11 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           DASHBOARD
         </Link>
       </li>
+      <li className='text-xs'>
+        <Link to='/' href='#!'>
+          REVIEWS
+        </Link>
+      </li>
     </ul>
   );
   const guestLinks = (
@@ -31,14 +36,19 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       <li className='text-xs'>
         <Link to='/login'>WRITE</Link>
       </li>
+      <li className='text-xs'>
+        <Link to='/' href='#!'>
+          REVIEWS
+        </Link>
+      </li>
     </ul>
   );
   return (
     <div>
       <div className='p-6 mx-auto bg-white flex items-center space-x-4 w-full justify-around sticky'>
-        <div className='flex flex-col sm:flex-row items-center w-3/4 justify-between'>
-          <div className='text-3xl font-serif sm:w-2/3'>DiveRush</div>
-          <div className='sm:w-1/3 flex items-end w-full mt-3 sm:justify-end'>
+        <div className='flex flex-col md:flex-row items-center w-3/4 justify-between'>
+          <div className='text-3xl font-serif md:w-2/3'>DiveRush</div>
+          <div className='md:w-1/3 flex items-end w-full mt-3 md:justify-around'>
             {!loading && (
               <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
             )}

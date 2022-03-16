@@ -8,13 +8,14 @@ import ReviewItem from "../reviews/ReviewItem";
 const Genre = ({ getReviewsByGenre, match, review: { reviews } }) => {
   useEffect(() => {
     getReviewsByGenre(match.params.id);
-  }, [getReviewsByGenre]);
+  }, [getReviewsByGenre, match]);
+  // console.log(reviews);
   return (
-    <div className='bg-white p-6 w-3/4 flex flex-col lg:items-center sm:items-center'>
+    <div className='bg-white p-6 w-3/4 min-h-full flex flex-col items-center'>
       <div className='border-b-gray border-b-2 w-3/4 flex justify-center'>
         REVIEWS
       </div>
-      <div className='flex w-full lg:justify-between flex-wrap xs:items-center flex-col lg:flex-row'>
+      <div className='flex w-full lg:justify-between sm:flex-wrap sm:items-center sm:flex-row flex-col lg:flex-row'>
         {reviews.map((review) => (
           <ReviewItem key={review._id} review={review} />
         ))}

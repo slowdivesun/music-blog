@@ -17,7 +17,7 @@ const Dashboard = ({
   }, [getCurrentProfile]);
   console.log(profile);
   return loading && profile === null ? (
-    <div className='w-screen h-screen flex items-center justify-center'>
+    <div className='w-screen min-h-[h-screen] flex items-center justify-center'>
       <div className='text-xl'>Loading...</div>
     </div>
   ) : (

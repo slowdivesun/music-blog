@@ -12,7 +12,7 @@ const ProfileTop = ({
 }) => {
   return (
     <Fragment>
-      <div className='flex flex-col w-2/3 items-center border-b-2 border-b-gray p-6'>
+      <div className='flex flex-col w-full items-center border-b-2 border-b-gray p-6'>
         <img
           src={user}
           className='rounded-full border-2 border-black w-2/5'

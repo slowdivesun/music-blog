@@ -23,12 +23,20 @@ const Profile = ({
           <div>Loading...</div>
         </div>
       ) : (
-        <div className='bg-white p-6 w-3/4 flex flex-col items-center'>
-          <Link to='/writers'>Back to writers page</Link>
+        <div className='bg-white p-6 w-3/4 flex flex-col  items-center'>
+          <Link to='/writers'>
+            <button className='mb-3 w-[300px] transition ease-in-out delay-400 bg-black text-white hover:text-black hover:bg-white border-2 border-black px-8 py-2'>
+              Back to writers page
+            </button>
+          </Link>
           {auth.isAuthenticated &&
             auth.loading === false &&
             auth.author._id === profile.author._id && (
-              <Link to='/edit-profile'>Edit Profile</Link>
+              <Link to='/edit-profile'>
+                <button className='w-[300px] transition ease-in-out delay-400 bg-black text-white hover:text-black hover:bg-white border-2 border-black px-8 py-2'>
+                  Edit Profile
+                </button>
+              </Link>
             )}
           <ProfileTop profile={profile} />
           <ProfileReviews id={match.params.id} />

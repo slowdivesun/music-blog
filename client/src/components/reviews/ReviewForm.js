@@ -15,7 +15,7 @@ const ReviewForm = ({ getGenres, addReview, genre }) => {
     text: "",
   });
 
-  const { title, artist, genres, score, author, text } = formData;
+  let { title, artist, genres, score, author, text } = formData;
 
   useEffect(() => {
     getGenres();
@@ -26,8 +26,18 @@ const ReviewForm = ({ getGenres, addReview, genre }) => {
   };
 
   const onSubmit = (e) => {
+    console.log(genres);
     e.preventDefault();
     addReview({ title, artist, genre: genres, score, author, text });
+  };
+
+  const onCheckboxChange = (e) => {
+    if (e.target.checked) {
+      genres.push(e.target.value);
+    } else {
+      genres = genres.filter((g) => g !== e.target.value);
+    }
+    console.log(genres);
   };
 
   return (
@@ -76,17 +86,29 @@ const ReviewForm = ({ getGenres, addReview, genre }) => {
           ></textarea>
           <div className='flex flex-col items-center'>
             <div>GENRES</div>
-            <div className='flex flex-row'>
+            <div className='flex flex-row justify-center flex-wrap w-full my-3'>
               {genre.genres.map((g) => (
-                <div className='mx-3'>
-                  <input type='checkbox' onClick={(e) => genres.push(g._id)} />{" "}
-                  {g.name}
+                <div className='mx-3 my-2'>
+                  <input
+                    type='checkbox'
+                    id={g._id}
+                    onChange={(e) => onCheckboxChange(e)}
+                    value={g._id}
+                  />
+                  <label className='ml-1' for={g._id}>
+                    {g.name}
+                  </label>
                 </div>
               ))}
             </div>
           </div>
 
-          <button type='submit'>Submit</button>
+          <button
+            className='transition ease-in-out delay-400 bg-black text-white hover:text-black hover:bg-white border-2 border-black px-8 py-2'
+            type='submit'
+          >
+            Submit
+          </button>
         </form>
       </div>
     </div>

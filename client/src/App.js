@@ -34,11 +34,11 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <div className='App bg-gray-300 h-screen flex flex-col items-stretch'>
+        <div className='App bg-gray-300 min-h-full flex flex-col items-stretch'>
           <Fragment>
             <Navbar />
             <Route exact path='/' component={Reviews}></Route>
-            <section className='App bg-gray-300 h-screen flex flex-col items-center'>
+            <section className='App bg-gray-300 min-h-max flex flex-col items-center'>
               <Alert />
               <Switch>
                 <Route path='/login' component={Login} />

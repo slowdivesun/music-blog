@@ -8,26 +8,42 @@ const ReviewItem = ({
   review: { _id, text, author, title, artist, score, genre, date },
 }) => {
   return (
-    <div className='sm:mx-5 my-5 flex items-center flex-col xs:w-full sm:w-full lg:w-auto flex-1'>
+    <div className='mx-3 my-5 min-w-[200px] flex items-center flex-col xs:w-full sm:w-full lg:w-auto flex-1'>
       <div>{artist}</div>
       <Link className='hover:text-red-600 font-light' to={`/review/${_id}`}>
-        <h1>{title}</h1>
+        <h1 className='text-center'>{title}</h1>
       </Link>
       <div>
-        <div>
+        <div className='text-center'>
           <span>
-            {genre.map((g) => (
-              <small>{g.name}</small>
-            ))}
+            {genre.map((g, index) => {
+              if (index === genre.length - 1) {
+                return (
+                  <small>
+                    <Link className='hover:text-red-600' to={`/genre/${g._id}`}>
+                      {g.name}
+                    </Link>{" "}
+                  </small>
+                );
+              }
+              return (
+                <small>
+                  <Link className='hover:text-red-600' to={`/genre/${g._id}`}>
+                    {g.name} /
+                  </Link>{" "}
+                </small>
+              );
+            })}
           </span>
         </div>
-
-        <small>
-          Author:{" "}
-          <Link className='hover:text-red-600 ' to={`/profile/${author._id}`}>
-            {author.name}
-          </Link>
-        </small>
+        <div className='text-center'>
+          <small>
+            Author:{" "}
+            <Link className='hover:text-red-600 ' to={`/profile/${author._id}`}>
+              {author.name}
+            </Link>
+          </small>
+        </div>
       </div>
       <small>
         <Moment format='MMMM Do YYYY'>{date}</Moment>

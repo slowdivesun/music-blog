@@ -122,10 +122,12 @@ router.get("/genre/:genre_id", async (req, res) => {
     }
     const reviews = await Review.find({
       genre: req.params.genre_id,
-    }).populate([
-      { path: "author", select: ["_id", "name"] },
-      { path: "genre", select: ["name", "_id"] },
-    ]);
+    })
+      .sort({ date: -1 })
+      .populate([
+        { path: "author", select: ["_id", "name"] },
+        { path: "genre", select: ["name", "_id"] },
+      ]);
     res.json(reviews);
   } catch (err) {
     console.error(err.message);

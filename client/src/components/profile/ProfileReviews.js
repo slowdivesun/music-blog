@@ -11,9 +11,9 @@ const ProfileReviews = ({ reviews, getReviews, id }) => {
   }, [getReviews]);
   console.log(reviews);
   return (
-    <div className='flex flex-col items-center p-4 w-2/3 border-b-2 border-b-gray'>
+    <div className='flex flex-col items-center p-4 w-full border-b-2 border-b-gray'>
       <div>REVIEWS</div>
-      <div className='flex w-full lg:justify-between flex-wrap xs:items-center flex-col lg:flex-row'>
+      <div className='flex w-full lg:justify-between sm:flex-wrap sm:items-center sm:flex-row flex-col lg:flex-row'>
         {reviews.map((review) => (
           <ReviewItem key={review._id} review={review} />
         ))}

@@ -7,7 +7,10 @@ const Alert = ({ alerts }) => {
     alerts !== null &&
     alerts.length > 0 &&
     alerts.map((alert) => (
-      <div key={alert.id} className='bg-[red] py-3 px-6'>
+      <div
+        key={alert.id}
+        className='bg-red-600 py-3 my-2 px-6 w-[80vw] relaive flex items-center justify-center text-white'
+      >
         {alert.msg}
       </div>
     ))

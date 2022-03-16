@@ -14,11 +14,11 @@ const Reviews = ({ getAllReviews, review: { reviews, loading }, auth }) => {
     <div>Loading...</div>
   ) : (
     <div className='flex flex-col items-center '>
-      <div className='bg-white p-6 w-3/4 flex flex-col lg:items-center sm:items-center'>
+      <div className='bg-white p-6 w-3/4 flex flex-col lg:items-center items-center'>
         <div className='border-b-gray border-b-2 w-3/4 flex justify-center'>
           REVIEWS
         </div>
-        <div className='flex w-full lg:justify-between flex-wrap xs:items-center flex-col lg:flex-row'>
+        <div className='flex w-full lg:justify-between sm:flex-wrap sm:items-center sm:flex-row flex-col lg:flex-row'>
           {reviews.map((review) => (
             <ReviewItem key={review._id} review={review} />
           ))}
@@ -26,7 +26,7 @@ const Reviews = ({ getAllReviews, review: { reviews, loading }, auth }) => {
 
         {auth.isAuthenticated && (
           <Link
-            className='shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded'
+            className='transition ease-in-out delay-400 bg-black text-white hover:text-black hover:bg-white border-2 border-black px-8 py-2'
             to='/add-review'
           >
             Add Review
