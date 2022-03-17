@@ -22,6 +22,7 @@ import { useEffect } from "react";
 import ReviewForm from "./components/reviews/ReviewForm";
 import Review from "./components/review/Review";
 import Genre from "./components/genre/Genre";
+import List from "./components/List/List";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -46,6 +47,7 @@ const App = () => {
                 <Route path='/profile/:id' component={Profile} />
                 <Route path='/review/:id' component={Review} />
                 <Route path='/genre/:id' component={Genre} />
+                <Route path='/list/:id' component={List} />
 
                 <PrivateRoute path='/dashboard' component={Dashboard} />
                 <PrivateRoute path='/add-review' component={ReviewForm} />

@@ -16,3 +16,5 @@ export const REVIEW_ERROR = "REVIEW_ERROR";
 export const ADD_REVIEW = "ADD_REVIEW";
 export const GET_GENRES = "GET_GENRES";
 export const CLEAR_GENRE = "CLEAR_GENRE";
+export const GET_LIST = "GET_LIST";
+export const LIST_ERROR = "LIST_ERROR";
