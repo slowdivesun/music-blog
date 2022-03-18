@@ -1,128 +1,108 @@
-// import React, { useState } from "react";
-// import PropTypes from "prop-types";
-// import { connect } from "react-redux";
-// import { addReview } from "../../actions/review";
-// import { useEffect } from "react";
-// import { getGenres } from "../../actions/genre";
+import React, { useState, Fragment } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { getAllReviews } from "../../actions/review";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
-// const ListForm = ({ getGenres, addReview, genre }) => {
-//   const [formData, setFormData] = useState({
-//     title: "",
-//     artist: "",
-//     genres: [], // change this to genre before sending data
-//     score: 0,
-//     author: "",
-//     text: "",
-//   });
+const ListForm = ({ getAllReviews, review: { reviews } }) => {
+  const [name, setName] = useState("");
+  const [id, setId] = useState("");
+  const [entries, setEntries] = useState([]);
+  const [allReviews, setAllReviews] = useState([]);
 
-//   let { title, artist, genres, score, author, text } = formData;
+  useEffect(() => {
+    getAllReviews();
+  }, [getAllReviews]);
 
-//   useEffect(() => {
-//     getGenres();
-//   }, []);
-//   console.log(genre.genres);
-//   const onChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
+  useEffect(() => {
+    setAllReviews(reviews);
+  }, [reviews]);
 
-//   const onSubmit = (e) => {
-//     console.log(genres);
-//     e.preventDefault();
-//     addReview({ title, artist, genre: genres, score, author, text });
-//   };
+  const onChange = (e) => {
+    setName(e.target.value);
+  };
 
-//   const onCheckboxChange = (e) => {
-//     if (e.target.checked) {
-//       genres.push(e.target.value);
-//     } else {
-//       genres = genres.filter((g) => g !== e.target.value);
-//     }
-//     console.log(genres);
-//   };
+  const onAdd = (e, id) => {
+    e.preventDefault();
+    let review = allReviews.find((e) => e._id === id);
+    setEntries([review, ...entries]);
+    setAllReviews(allReviews.filter((r) => r._id !== id));
+  };
 
-//   return (
-//     <div className='bg-white p-6 w-3/4 flex flex-col items-center'>
-//       <div>
-//         <form
-//           className=' flex flex-col items-center'
-//           onSubmit={(e) => onSubmit(e)}
-//         >
-//           <div className='flex flex-row flex-wrap justify-around'>
-//             <input
-//               className='border-2 border-gray my-3 p-3 mx-4'
-//               type='text'
-//               name='title'
-//               placeholder='Title'
-//               value={title}
-//               onChange={(e) => onChange(e)}
-//             />
-//             <input
-//               className='border-2 border-gray my-3 p-3'
-//               type='text'
-//               name='artist'
-//               placeholder='Artist'
-//               value={artist}
-//               onChange={(e) => onChange(e)}
-//             />
-//           </div>
+  const onRemove = (e, id) => {
+    e.preventDefault();
+    let review = entries.find((e) => e._id === id);
+    setEntries(entries.filter((r) => r._id !== id));
+    setAllReviews([review, ...allReviews]);
+  };
 
-//           <input
-//             className='border-2 border-gray my-3 p-3'
-//             type='number'
-//             name='score'
-//             placeholder='Score'
-//             value={score}
-//             min='0'
-//             max='10'
-//             onChange={(e) => onChange(e)}
-//           />
-//           <textarea
-//             className='border-2 border-gray my-3 p-1 w-[100%]'
-//             name='text'
-//             rows='5'
-//             placeholder='Write your review'
-//             value={text}
-//             onChange={(e) => onChange(e)}
-//           ></textarea>
-//           <div className='flex flex-col items-center'>
-//             <div>GENRES</div>
-//             <div className='flex flex-row justify-center flex-wrap w-full my-3'>
-//               {genre.genres.map((g) => (
-//                 <div className='mx-3 my-2'>
-//                   <input
-//                     type='checkbox'
-//                     id={g._id}
-//                     onChange={(e) => onCheckboxChange(e)}
-//                     value={g._id}
-//                   />
-//                   <label className='ml-1' for={g._id}>
-//                     {g.name}
-//                   </label>
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
+  const onSubmit = (e) => {};
 
-//           <button
-//             className='transition ease-in-out delay-400 bg-black text-white hover:text-black hover:bg-white border-2 border-black px-8 py-2'
-//             type='submit'
-//           >
-//             Submit
-//           </button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
+  return (
+    <div className='bg-white p-6 w-3/4 flex flex-col items-center'>
+      <form>
+        <input type='text' placeholder='' />
+      </form>
+      <div
+        className={
+          entries.length > 0 ? `w-full border-b-gray-300 border-b-2` : `w-full`
+        }
+      >
+        {entries.map((r) => (
+          <Fragment>
+            <div
+              key={r._id}
+              className='flex w-full flex-col sm:flex-row justify-between items-center mb-4'
+            >
+              <div>
+                <div className='text-xl'>{r.title}</div>
+                <div className='font-light'>{r.artist}</div>
+              </div>
+              <button
+                type='button'
+                className='transition ease-in-out delay-400 bg-black text-white hover:text-black hover:bg-white border-2 border-black px-8 py-2'
+                onClick={(e) => onRemove(e, r._id)}
+              >
+                Remove
+              </button>
+            </div>
+          </Fragment>
+        ))}
+      </div>
+      <div className='w-full'>
+        {allReviews.map((r) => (
+          <Fragment>
+            <div
+              key={r._id}
+              className='flex w-full flex-col sm:flex-row justify-between items-center mb-4'
+            >
+              <div>
+                <div className='text-xl'>{r.title}</div>
+                <div className='font-light'>{r.artist}</div>
+              </div>
+              <button
+                type='button'
+                className='transition ease-in-out delay-400 bg-black text-white hover:text-black hover:bg-white border-2 border-black px-8 py-2'
+                onClick={(e) => onAdd(e, r._id)}
+              >
+                Add
+              </button>
+            </div>
+          </Fragment>
+        ))}
+      </div>
+    </div>
+  );
+};
 
-// ListForm.propTypes = {
-//   addReview: PropTypes.func.isRequired,
-//   genre: PropTypes.object.isRequired,
-//   getGenres: PropTypes.func.isRequired,
-// };
+ListForm.propTypes = {
+  review: PropTypes.object.isRequired,
+  getAllReviews: PropTypes.func.isRequired,
+};
 
-// const mapStateToProps = (state) => ({
-//   genre: state.genre,
-// });
+const mapStateToProps = (state) => ({
+  review: state.review,
+});
 
-// export default connect(mapStateToProps, { getGenres, addReview })(ListForm);
+export default connect(mapStateToProps, { getAllReviews })(ListForm);

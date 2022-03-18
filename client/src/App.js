@@ -23,6 +23,7 @@ import ReviewForm from "./components/reviews/ReviewForm";
 import Review from "./components/review/Review";
 import Genre from "./components/genre/Genre";
 import List from "./components/List/List";
+import ListForm from "./components/List/ListForm";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -51,6 +52,7 @@ const App = () => {
 
                 <PrivateRoute path='/dashboard' component={Dashboard} />
                 <PrivateRoute path='/add-review' component={ReviewForm} />
+                <PrivateRoute path='/add-list' component={ListForm} />
                 <PrivateRoute path='/add-bio' component={CreateProfile} />
                 <PrivateRoute path='/edit-profile' component={EditProfile} />
               </Switch>
