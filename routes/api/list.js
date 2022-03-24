@@ -4,6 +4,7 @@ const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 const Review = require("../../models/Review");
 const List = require("../../models/List");
+const Author = require("../../models/Author");
 
 router.post(
   "/",
@@ -22,9 +23,12 @@ router.post(
         }
       }
 
+      const author = await Author.findById(req.author.id).select("-password");
+
       const newList = new List({
         name: req.body.name,
         entries: req.body.entries,
+        author: author,
       });
 
       const list = await newList.save();
@@ -36,10 +40,24 @@ router.post(
   }
 );
 
+router.get("/", async (req, res) => {
+  try {
+    const lists = await List.find().populate([
+      { path: "author", select: ["name", "_id"] },
+    ]);
+
+    res.json(lists);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 router.get("/:list_id", async (req, res) => {
   try {
     const list = await List.findById(req.params.list_id).populate([
       { path: "entries", select: ["_id", "title", "artist"] },
+      { path: "author", select: ["name", "_id"] },
     ]);
 
     if (!list) {

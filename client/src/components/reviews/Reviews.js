@@ -10,11 +10,12 @@ const Reviews = ({ getAllReviews, review: { reviews, loading }, auth }) => {
   useEffect(() => {
     getAllReviews();
   }, getAllReviews);
+  console.log(reviews);
   return loading ? (
     <div>Loading...</div>
   ) : (
-    <div className='flex flex-col items-center '>
-      <div className='bg-white p-6 w-3/4 flex flex-col lg:items-center items-center'>
+    <div className='flex flex-col items-center min-h-[85vh]'>
+      <div className='bg-white p-6 w-3/4 flex flex-col lg:items-center items-center min-h-[85vh]'>
         <div className='border-b-gray border-b-2 w-3/4 flex justify-center'>
           REVIEWS
         </div>

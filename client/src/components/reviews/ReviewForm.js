@@ -20,10 +20,12 @@ const ReviewForm = ({ getGenres, addReview, genre }) => {
   useEffect(() => {
     getGenres();
   }, []);
-  console.log(genre.genres);
+
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  console.log(formData);
 
   const onSubmit = (e) => {
     console.log(genres);

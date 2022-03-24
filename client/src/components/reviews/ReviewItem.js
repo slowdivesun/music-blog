@@ -29,8 +29,9 @@ const ReviewItem = ({
               return (
                 <small>
                   <Link className='hover:text-red-600' to={`/genre/${g._id}`}>
-                    {g.name} /
-                  </Link>{" "}
+                    {g.name}
+                  </Link>
+                  {" / "}
                 </small>
               );
             })}

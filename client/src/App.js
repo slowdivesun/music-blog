@@ -22,8 +22,9 @@ import { useEffect } from "react";
 import ReviewForm from "./components/reviews/ReviewForm";
 import Review from "./components/review/Review";
 import Genre from "./components/genre/Genre";
-import List from "./components/List/List";
-import ListForm from "./components/List/ListForm";
+import List from "./components/list/List";
+import ListForm from "./components/list/ListForm";
+import Lists from "./components/lists/Lists";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -36,19 +37,20 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <div className='App bg-gray-300 min-h-full flex flex-col items-stretch'>
+        <div className='App bg-slate-300 flex flex-col items-stretch'>
           <Fragment>
             <Navbar />
             <Route exact path='/' component={Reviews}></Route>
-            <section className='App bg-gray-300 min-h-max flex flex-col items-center'>
+            <section className='App bg-gray-300 flex flex-col items-center'>
               <Alert />
               <Switch>
                 <Route path='/login' component={Login} />
                 <Route path='/writers' component={Profiles} />
+                <Route exact path='/list' component={Lists} />
                 <Route path='/profile/:id' component={Profile} />
                 <Route path='/review/:id' component={Review} />
                 <Route path='/genre/:id' component={Genre} />
-                <Route path='/list/:id' component={List} />
+                <Route exact path='/list/:id' component={List} />
 
                 <PrivateRoute path='/dashboard' component={Dashboard} />
                 <PrivateRoute path='/add-review' component={ReviewForm} />

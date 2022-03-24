@@ -44,8 +44,8 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     </ul>
   );
   return (
-    <div>
-      <div className='p-6 mx-auto bg-white flex items-center space-x-4 w-full justify-around sticky'>
+    <div className='sticky top-0 shadow-md'>
+      <div className='p-6 mx-auto bg-white flex items-center space-x-4 w-full justify-around top-0 sticky h-[15vh] sm:h-[15vh]'>
         <div className='flex flex-col md:flex-row items-center w-3/4 justify-between'>
           <div className='text-3xl font-serif md:w-2/3'>DiveRush</div>
           <div className='md:w-1/3 flex items-end w-full mt-3 md:justify-around'>

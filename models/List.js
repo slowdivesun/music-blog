@@ -11,6 +11,10 @@ const ListSchema = new mongoose.Schema({
       ref: "review",
     },
   ],
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "author",
+  },
   date: {
     type: Date,
     default: Date.now,

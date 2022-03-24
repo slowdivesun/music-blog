@@ -15,7 +15,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <div className='bg-white p-6 w-3/4 flex flex-col items-center'>
+        <div className='bg-white min-h-screen p-6 w-3/4 flex flex-col items-center'>
           <h1 className='text-xl w-2/3 border-b-2 border-b-gray mb-3 text-center'>
             Writers
           </h1>

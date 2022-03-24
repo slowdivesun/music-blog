@@ -12,7 +12,7 @@ const Review = ({ getReview, review: { review, loading }, match }) => {
   return review === null || loading ? (
     <div>Loading...</div>
   ) : (
-    <div className='bg-white p-6 w-3/4 flex flex-col items-center'>
+    <div className='bg-white p-6 w-3/4 flex min-h-[85vh] sm:min-h-[85vh] flex-col items-center'>
       <div className='flex flex-col lg:flex-row sm:flex-col w-full justify-around items-center'>
         <div className='flex flex-col items-center'>
           <div className='font-serif text-4xl text-center'>{review.title}</div>

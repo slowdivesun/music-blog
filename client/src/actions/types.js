@@ -18,3 +18,4 @@ export const GET_GENRES = "GET_GENRES";
 export const CLEAR_GENRE = "CLEAR_GENRE";
 export const GET_LIST = "GET_LIST";
 export const LIST_ERROR = "LIST_ERROR";
+export const GET_LISTS = "GET_LISTS";
